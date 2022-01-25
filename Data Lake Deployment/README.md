@@ -69,8 +69,7 @@ This code is parameterized and we are using different modules for every Azure Re
 **Things to keep in mind are :**
 
 1. We are using Azure BLOB as backend configuration, so you need to ensure the storage account and container mentioned in the backend configuration exists.
-2. Since we are using data block to fetch key vault secrets, where we store all our sensitive information. The key vault and the secrets should already exist.
-3. Data lake linked service is configured using *"Data Lake Deployment\terraform-modules\data-lake\main.tf"* file. I haven't written code to implement data set because that can vary depending on the requirement. But this can be easily added based on the requirement.
+2. Data lake linked service is configured using *"Data Lake Deployment\terraform-modules\data-lake\main.tf"* file. I haven't written code to implement data set because that can vary depending on the requirement. But this can be easily added based on the requirement.
 
 To run this example, simply follow to steps below:
 
