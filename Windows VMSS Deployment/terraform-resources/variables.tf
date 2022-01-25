@@ -587,7 +587,6 @@ variable "vmss_name" {
   description = "Virtual Machine Scale Set name."
 }
 
-
 variable "vmss_sku" {
   type        = string
   default     = ""
@@ -686,3 +685,4 @@ variable "vmss_cpu_lower_threshold" {
   type        = number
   description = "Lower threshold for CPU usage percentage to autoscale VMSS."
 }
+

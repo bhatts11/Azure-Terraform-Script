@@ -208,7 +208,7 @@ data "azurerm_key_vault_secret" "virtual_machine_user" {
 }
 
 data "azurerm_key_vault_secret" "virtual_machine_passwd" {
-  name         = var.virtual_machine_Passwd 
+  name         = var.virtual_machine_Passwd
   key_vault_id = data.azurerm_key_vault.kv_name.id
 }
 

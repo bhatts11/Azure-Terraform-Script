@@ -1,6 +1,6 @@
 subscription_id = "da74e3ed-9c9a-4605-8fae-10f3492c0f5c"
 ## Pre Defined KV for storing secret
-devKV_Name         = "iac-test-coe"        #### We have to change as per env
+devKV_Name         = "iac-test-coe"       #### We have to change as per env
 akskv_SPClientID   = "spclientid"         ## SP Client ID - replace with created secret name
 akskv_SPClientSec  = "spclientsec"        ## SP Client Secret - replace with created secret name
 sqlkv_AdmUsrPasswd = "mysqladmuserpasswd" ## MySQL Server Admin user password - replace with created secret name

@@ -237,7 +237,7 @@ module "sqlserver" {
   rg_Name       = var.rg_Name
   location      = var.location
   sql_version   = var.sql_version
-  sql_user      = data.azurerm_key_vault_secret.sql_admin_user.value 
+  sql_user      = data.azurerm_key_vault_secret.sql_admin_user.value
   sql_password  = data.azurerm_key_vault_secret.sql_admin_passwd.value
   mssqldb       = var.mssqldb
   #mssql_serverid      = module.sqlserver.id

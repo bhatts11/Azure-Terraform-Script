@@ -42,12 +42,12 @@ resource "azurerm_network_interface_security_group_association" "main" {
 
 
 resource "azurerm_windows_virtual_machine" "winvm" {
-  name                            = var.vm_name
-  resource_group_name             = var.rg_Name
-  location                        = var.location
-  size                            = var.vm_size
-  admin_username                  = var.vm_username
-  admin_password                  = var.vm_password
+  name                = var.vm_name
+  resource_group_name = var.rg_Name
+  location            = var.location
+  size                = var.vm_size
+  admin_username      = var.vm_username
+  admin_password      = var.vm_password
   # disable_password_authentication = false
   network_interface_ids = [
     azurerm_network_interface.vm_nic.id,

@@ -1,16 +1,16 @@
-subscription_id = "da74e3ed-9c9a-4605-8fae-10f3492c0f5c"
+subscription_id = "aa01771c-5ab3-4809-b7e6-30c8080fc4ee"
 ## Pre Defined KV for storing secret
-devKV_Name         = "iac-test-coe"       #### We have to change as per env
+devKV_Name         = "iac-test-kv"        #### We have to change as per env
 akskv_SPClientID   = "spclientid"         ## SP Client ID - replace with created secret name
 akskv_SPClientSec  = "spclientsec"        ## SP Client Secret - replace with created secret name
 sqlkv_AdmUsrPasswd = "mysqladmuserpasswd" ## MySQL Server Admin user password - replace with created secret name
 ## VNET - SUBNET
-rg_Name            = "CoE-Training" ## We have to change as per env
+rg_Name            = "UPS" ## We have to change as per env
 location           = "eastus2"
 vnet_Name          = "vnet-terraform-modulesdev-eus2"
-vnet_Address       = "178.29.192.0/20"
-subnet_NameList    = ["snet-aks-terraform-modulesdev-eus2", "snet-agw-terraform-modulesdev-eus2", "snet-shared-terraform-modulesdev-eus2", "snet-vm-terraform-modulesdev-eus2", "GatewaySubnet"]
-subnet_AddressList = ["178.29.192.0/26", "178.29.192.64/26", "178.29.192.128/26", "178.29.192.192/26", "178.29.193.0/26"]
+vnet_Address       = "178.29.212.0/22"
+subnet_NameList    = ["snet-aks-terraform-modulesdev-eus2", "snet-agw-terraform-modulesdev-eus2", "snet-shared-terraform-modulesdev-eus2", "GatewaySubnet"]
+subnet_AddressList = ["178.29.212.0/23", "178.29.214.64/28", "178.29.214.0/26", "178.29.215.0/27"]
 
 ### For APP GWY                = ###
 appgtwy_PublicIPName       = "pip-agw-terraform-modulesdev-eus2"
@@ -65,7 +65,7 @@ MySQLServer_InfraEncryptionEnabled  = false
 MySQLServer_PubNetworkAccessEnabled = true
 MySQLServer_SSLEnforcementEnabled   = true
 MySQLServer_SSLVersion              = "TLS1_2"
-MySQLDB_Name                        = "terraform-devmysqldb"
+MySQLDB_Name                        = "terraform-modulesmysqldb"
 MySQLCharSet                        = "utf8"
 MySQlCollection                     = "utf8_unicode_ci"
 
@@ -75,6 +75,13 @@ storageaccount_Tier            = "Standard"
 storageaccount_Kind            = "StorageV2"
 storageaccount_ReplicationType = "LRS"
 storageaccount_ContainerName   = "devdata"
+
+### App Service Plan and Web App
+app_plan_name   = "terraform-test-plan"
+web_app_name    = "terra-test-web"
+appsvcplan_kind = "Windows"
+appservice_tier = "Standard"
+appservice_size = "S1"
 
 ### SQL Server deployment
 sqlservername = "sushterratest"
@@ -86,7 +93,7 @@ sqlkv_AdmPasswd = "sqlpassword" # Name of the key vault secret used to store SQL
 
 ### SQL Database deployment
 
-mssqldb             = "testterradevdb"
+mssqldb             = "testterradb"
 sql_collation       = "SQL_Latin1_General_CP1_CI_AS"
 sql_license_type    = "LicenseIncluded"
 sql_db_max_size     = 4
@@ -96,22 +103,3 @@ weekly_retention    = "P7D"
 monthly_retention   = "P1M"
 yearly_retention    = "P365D"
 week_of_year        = 4
-
-### Linux Virtual Machine Deployment
-
-virtual_machine_Usr    = "virtual-machine-user"
-virtual_machine_Passwd = "virtual-machine-password"
-vm_pip                 = "public_ip_win"
-pip_allocation         = "Dynamic"
-vm_nic                 = "win_vm_nic"
-ip_configuration       = "ip_config"
-vm_name                = "win-terra-vm"
-vm_size                = "Standard_B2s"
-vm_username            = "" ## Fetched from KV.
-vm_password            = "" ## Fetched from KV.
-vm_image_publisher     = "MicrosoftWindowsServer"
-vm_image_offer         = "WindowsServer"
-vm_image_sku           = "2016-Datacenter"
-vm_image_version       = "latest"
-vm_os_disk_strg_type   = "Standard_LRS"
-vm_os_disk_caching     = "ReadWrite"
