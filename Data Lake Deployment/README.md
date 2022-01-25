@@ -1,13 +1,13 @@
 # **Optimized storage – time based with Data Lake.**
 
 ## **Azure Explanation**
-
+#
 ### **This script creates resources based on below architecture :**
-
+#
 ![](DataLake.png)
-
+#
 ### **Potential use cases :**
-
+#
 The architecture may be appropriate for any application that uses massive amounts of data that must always be available. Examples include apps that:
 
 * Track customer spending habits and shopping behavior.
@@ -17,7 +17,7 @@ The architecture may be appropriate for any application that uses massive amount
 * Display smart meter data or use smart technology to monitor meter data.
 
 ### **Assumptions in the architecture :**
-
+#
 1. The client authenticates with Azure Active Directory (Azure AD) and is granted access to web applications hosted on Azure App Service.
 2. Azure Front Door, a firewall and layer 7 load balancer, switches user traffic to a different Azure region in case of a regional outage.
 3. Azure App Service hosts websites and RESTful web APIs. Browser clients run AJAX applications that use the APIs.
@@ -29,7 +29,7 @@ The architecture may be appropriate for any application that uses massive amount
 Periodically, Azure Data Factory moves data from Azure Cosmos DB to Azure Data Lake to reduce storage costs.
 
 ### *Components*
-
+#
 1. [Azure Active Directory (Azure AD)](https://azure.microsoft.com/services/active-directory "Azure Active Directory (Azure AD)") is a multi-tenant identity and access management service that can synchronize with an on-premises directory.
 2. [Azure DNS](https://azure.microsoft.com/services/dns "Azure DNS" ) is a high-availability hosting service for DNS domains that provides apps with fast DNS queries and quick updates to DNS records. Managing Azure DNS is like managing other Azure services, and uses the same credentials, APIs, tools, and billing.
 3. [Azure Front Door](https://azure.microsoft.com/services/frontdoor "Azure Front Door") is a secure content delivery network (CDN) and load balancer with instant failover. It operates at the edge close to users, accelerating content delivery while protecting apps, APIs, and websites from cyber threats.
@@ -45,14 +45,14 @@ Periodically, Azure Data Factory moves data from Azure Cosmos DB to Azure Data L
 
 
 ### **Considerations**
-
+#
 * Historical data needs to be migrated to Azure Data Lake as a one-time activity to ensure cost effectiveness of the solution.
 * Application developers must implement data migration routines that use Azure Data Factory to move data from Azure Cosmos DB to Azure Data Lake.
 * If you're migrating data from old storage system, you may need to write routines to copy a portion of old data to Cosmos DB. Make sure that you have timestamp and copy flags to track the progress of migration of data.
 * You can further optimize the overall architecture by replacing Azure Redis cache with Azure Cosmos DB integrated cache.
 
 ### **Terraform Explanation**
-
+#
 This code is parameterized and we are using different modules for every Azure Resource. This allows us to manage our code along with enabling the reusability. The parent directory **Data Lake Deployment** contains two subfolders :
 
 1. terraform-modules
@@ -65,11 +65,13 @@ This code is parameterized and we are using different modules for every Azure Re
         * terraform.tfvars -> Tfvars file is automatically loaded without any additional option. This is the file where you need to update your resource values\names.
 
 ### **Usage :**
-
+#
 **Things to keep in mind are :**
 
 1. We are using Azure BLOB as backend configuration, so you need to ensure the storage account and container mentioned in the backend configuration exists.
-2. Data lake linked service is configured using *"Data Lake Deployment\terraform-modules\data-lake\main.tf"* file. I haven't written code to implement data set because that can vary depending on the requirement. But this can be easily added based on the requirement.
+2. Since we are using data block to fetch key vault secrets, where we store all our sensitive information. The key vault and the secrets should already exist.
+3. Data lake linked service is configured using *"Data Lake Deployment\terraform-modules\data-lake\main.tf"* file. I haven't written code to implement data set because that can vary depending on the requirement. But this can be easily added based on the requirement.
+3. App service site config is configured using line number 22 to 26 under *"Data Lake Deployment\terraform-modules\webapp\main.tf"* file. The application framework can be changed using these lines (ex: Java, Python, DotNet etc.)
 
 To run this example, simply follow to steps below:
 
@@ -78,19 +80,20 @@ To run this example, simply follow to steps below:
 
 ``` 
   cd terraform-resources
+
   terraform init
   terraform plan
   terraform apply
 
 ```
 ### **Explanation :**
-
+#
 1. Terraform init -> It initializes the directory and downloads required provider along with configuring the module.
 2. Terraform plan -> This helps you verify the code is going to deploy the resources as expected. This also ensures we don't face any unwanted surprise. This isn't mandatory, but a recommended step.
 3. Terraform apply -> This step applies the resources specified in this code. This will ask you to approve this later. We can skip manual approval by using --auto-approve parameter.
 
 ### **Best Practices & Recommendations**
-
+#
 1. Use Terraform workspaces for easier management of the deployments. This can also help us manage Dev, UAT and Production deployments instead of creating multiple state files\directories.
 2. If you are creating new resources\variables. Ensure naming convention is easily relatable, since we have a lot of variables in this code.
 3. Use conditionals to avoid unwanted surprises.
